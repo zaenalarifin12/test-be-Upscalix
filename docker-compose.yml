@@ -1,0 +1,38 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    restart: always
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_DATABASE: mydatabase
+      DB_HOST: db
+      DB_PORT: 5432
+      RABBITMQ_URL: amqp://rabbitmq
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  db-data:
+    # docker run -d --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:management
