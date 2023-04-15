@@ -11,12 +11,12 @@ Step-by-Step Guide to Running the Application
 6. Wait for approximately 5 minutes until you can access the application at `http://127.0.0.1:15672/`.
 7. To check the status of the email sending feature, enter the log terminal in the container app.
 
-8 knex migrate:latest
+8. knex migrate:latest
 
 9. run ```npm test``` for seeder and test
     change userController.test.js ```line 19``` for change the date
 
-10 run app ```npm run start``` 
+10. run app ```npm run start``` 
 
 
 
